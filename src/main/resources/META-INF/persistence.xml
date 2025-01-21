@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+  <persistence-unit name="library-persistent-unit" transaction-type="JTA">
+    <description>Default library management PU</description>
+
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <jta-data-source>java:/PostgresDS</jta-data-source>
+
+    <class>ru.nuthatch.libraryapi.entity.Author</class>
+    <class>ru.nuthatch.libraryapi.entity.Book</class>
+    <class>ru.nuthatch.libraryapi.entity.Issue</class>
+    <class>ru.nuthatch.libraryapi.entity.Reader</class>
+
+  </persistence-unit>
+</persistence>
