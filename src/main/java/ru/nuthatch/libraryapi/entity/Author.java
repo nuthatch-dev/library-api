@@ -1,11 +1,18 @@
 package ru.nuthatch.libraryapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+@NamedNativeQuery(name = "Author.findAll",
+        query = "SELECT a.* FROM author a",
+        resultClass = Author.class)
 
 @Getter
 @Setter
@@ -27,4 +34,8 @@ public class Author implements Serializable {
     private String email;
 
     private String description;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "authorSet")
+    @JsonIgnore
+    private Set<Book> bookSet = new HashSet<>();
 }

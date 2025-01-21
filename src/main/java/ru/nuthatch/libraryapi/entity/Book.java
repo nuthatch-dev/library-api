@@ -10,6 +10,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+
+@NamedNativeQuery(name = "Book.findAll",
+        query = "SELECT b.* FROM book b",
+        resultClass = Book.class)
+
 @Getter
 @Setter
 @Entity
@@ -27,10 +32,10 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private String title;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id"))
+            joinColumns = @JoinColumn(name = "id_book", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_author", referencedColumnName = "id"))
     private Set<Author> authorSet = new HashSet<>();
 
     @Column(name = "date_of_publication")

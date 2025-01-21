@@ -6,7 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import ru.nuthatch.libraryapi.entity.Reader;
+import ru.nuthatch.libraryapi.entity.Author;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,35 +14,35 @@ import java.util.Optional;
 @Named
 @Slf4j
 @RequestScoped
-public class ReaderRepository {
-
+public class AuthorRepository {
+    
     private static final String PERSISTENCE_UNIT_NAME = "library-persistent-unit";
 
     @PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Transactional
-    public Optional<Reader> create(Reader entity) {
+    public Optional<Author> create(Author entity) {
         entityManager.persist(entity);
-        return Optional.of(entityManager.find(Reader.class, entity.getId()));
+        return Optional.of(entityManager.find(Author.class, entity.getId()));
     }
 
-    public Optional<Reader> findById(long id) {
-        return Optional.of(entityManager.find(Reader.class, id));
-    }
-
-    @Transactional
-    public List<Reader> findAll() {
-        return entityManager.createNamedQuery("Reader.findAll", Reader.class).getResultList();
+    public Optional<Author> findById(long id) {
+        return Optional.of(entityManager.find(Author.class, id));
     }
 
     @Transactional
-    public Optional<Reader> update(Reader entity) {
-        Optional<Reader> result = Optional.empty();
-        Reader updatedReader = entityManager.find(Reader.class, entity.getId());
-        if (updatedReader != null) {
+    public List<Author> findAll() {
+        return entityManager.createNamedQuery("Author.findAll", Author.class).getResultList();
+    }
+
+    @Transactional
+    public Optional<Author> update(Author entity) {
+        Optional<Author> result = Optional.empty();
+        Author updatedAuthor = entityManager.find(Author.class, entity.getId());
+        if (updatedAuthor != null) {
             entityManager.merge(entity);
-            result = Optional.of(updatedReader);
+            result = Optional.of(updatedAuthor);
         }
         return result;
     }
@@ -51,9 +51,9 @@ public class ReaderRepository {
     public boolean deleteById(long id) {
         boolean isDeleted = false;
 
-        Reader deletedReader = entityManager.find(Reader.class, id);
-        if (deletedReader != null) {
-            entityManager.remove(deletedReader);
+        Author deletedAuthor = entityManager.find(Author.class, id);
+        if (deletedAuthor != null) {
+            entityManager.remove(deletedAuthor);
             isDeleted = true;
         }
         return isDeleted;

@@ -9,6 +9,10 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
+@NamedNativeQuery(name = "Reader.findAll",
+        query = "SELECT r.* FROM reader r",
+        resultClass = Reader.class)
+
 @Getter
 @Setter
 @Entity
