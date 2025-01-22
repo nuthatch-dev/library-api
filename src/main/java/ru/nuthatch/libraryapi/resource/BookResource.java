@@ -1,5 +1,6 @@
 package ru.nuthatch.libraryapi.resource;
 
+
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
